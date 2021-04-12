@@ -1,0 +1,7 @@
+https://limkydev.tistory.com/67
+싱글톤방식
+1.Eager(바로적재) 클래스 로딩시점에 가지고 있기에 비효율적일 수 있음.
+2.LazyLoad(호출시적재):스레드 세이프하지 않기에 인스턴스 여러번 호출될 가능성있음
+3.1 Lazy+SyncroNized: 성능저하 발생
+3.2 DoubleChecked: null check를 두번하되 안쪽에는 Syncronized 를 붙인다.
+4. demand holder: 클래스안에 static 클래스를 두어 사용 호출시에 한번만 사용 보장
