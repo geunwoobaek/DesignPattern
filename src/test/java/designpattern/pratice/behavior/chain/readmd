@@ -1,0 +1,37 @@
+정의:
+책임사슬패턴
+객체간의 결합도 느슨하게 하기 위해서 객체 처리 기회주는것
+기존의 인증 인가와 같은 Spring Security에서 자주 쓰이는 방식 필터에서 안걸러지면 다음 필터로 전달
+책임을 전가해줌
+
+장점:
+  명령의 발신자와 수신자 분리
+  처리 시간에 처리 전략 선택
+
+구현 원칙:
+1. 명령처리를 위한 구현은 있어야함 (예시에서는 isAuthorized)
+2. 다음프로세서에 대한 참조가 있어야함
+3. 각 프로세서는 다음 프로세서로 위임하는 역할을 하므로 삭제된 명령 주의
+4. 프로세스 순환주기 형성하면 안된다.
+5. 하나의 역할만 처리
+
+다른예시:
+Java Servlet fillter적용 각 필터는 다음 필터 대신 체인을 호출
+public class CustomFilter implements Filter {
+
+    public void doFilter(
+      ServletRequest request,
+      ServletResponse response,
+      FilterChain chain)
+      throws IOException, ServletException {
+
+        // process the request
+
+        // pass the request (i.e. the command) along the filter chain
+        chain.doFilter(request, response);
+    }
+단점:
+ 프로세스가 다음 프로세스로 호출하지 못하면 명령은깨짐
+ 잘못된 프로세스 호출시 주기 발생
+ 스택추적으로 인한 성능에 영향끼침
+ 프로세스간 코드 중복 유지관리늘어남
